@@ -15,28 +15,17 @@ const MONGO_URI = process.env.MONGO_URI
 const CLIENT_URL = process.env.CLIENT_URL
 
 // middlewares
-app.use(helmet())
-app.use(limiter)
-app.use(morgan(':method :url :status'))
-app.use(express.json())
 const allowedOrigins = [CLIENT_URL]
+app.use(helmet())
 app.use(
 	cors({
 		methods: ['GET', 'POST'],
 		origin: allowedOrigins
 	})
 )
-app.use((err, req, res, next) => {
-	if (err instanceof rateLimit.RateLimitExceeded) {
-		return res.status(429).json({
-			message: 'Вы заблокированы на 5 минут, попробуйте позже'
-		})
-	} else {
-		return res.status(500).json({
-			message: 'Internal Server Error'
-		})
-	}
-})
+app.use(morgan(':method :url :status'))
+app.use(express.json())
+app.use(limiter)
 
 mongoose
 	.connect(MONGO_URI)
@@ -49,6 +38,13 @@ mongoose
 
 // routers
 app.use(router)
+
+app.use((err, req, res, next) => {
+	console.error(err.stack)
+	res.status(500).json({
+		message: 'Internal Server Error'
+	})
+})
 
 app.listen(PORT, () => {
 	console.log(`server is listening port: ${PORT}`)
