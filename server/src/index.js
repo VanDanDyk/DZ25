@@ -5,7 +5,6 @@ const mongoose = require('mongoose')
 require('dotenv').config()
 const router = require('./api/router/userRouter')
 const helmet = require('helmet')
-const rateLimit = require('rate-limit')
 const limiter = require('./api/utils/limiter')
 
 const app = express()
