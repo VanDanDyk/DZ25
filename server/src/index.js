@@ -4,6 +4,9 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 require('dotenv').config()
 const router = require('./api/router/userRouter')
+const helmet = require('helmet')
+const rateLimit = require('rate-limit')
+const limiter = require('./api/utils/limiter')
 
 const app = express()
 
@@ -11,6 +14,8 @@ const PORT = process.env.PORT || 3000
 const MONGO_URI = process.env.MONGO_URI
 const CLIENT_URL = process.env.CLIENT_URL
 
+app.use(helmet())
+app.use(limiter)
 app.use(morgan(':method :url :status'))
 app.use(express.json())
 const allowedOrigins = [CLIENT_URL]
