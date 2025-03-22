@@ -6,6 +6,7 @@ require('dotenv').config()
 const router = require('./api/router/userRouter')
 const helmet = require('helmet')
 const limiter = require('./api/utils/limiter')
+const rateLimit = require('express-rate-limit')
 
 const app = express()
 
@@ -13,6 +14,7 @@ const PORT = process.env.PORT || 3000
 const MONGO_URI = process.env.MONGO_URI
 const CLIENT_URL = process.env.CLIENT_URL
 
+// middlewares
 app.use(helmet())
 app.use(limiter)
 app.use(morgan(':method :url :status'))
@@ -24,6 +26,17 @@ app.use(
 		origin: allowedOrigins
 	})
 )
+app.use((err, req, res, next) => {
+	if (err instanceof rateLimit.RateLimitExceeded) {
+		return res.status(429).json({
+			message: 'Вы заблокированы на 5 минут, попробуйте позже'
+		})
+	} else {
+		return res.status(500).json({
+			message: 'Internal Server Error'
+		})
+	}
+})
 
 mongoose
 	.connect(MONGO_URI)
