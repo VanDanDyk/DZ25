@@ -1,0 +1,63 @@
+.container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title{
+    font-size: 60px;
+}
+
+.ToDoList{
+    width:40%;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    overflow: hidden auto;
+    margin-top: 3%;
+}
+
+.ToDoList li{
+    width: 100%;
+    height: 23%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    border: solid black 2px;
+    padding: 2%;
+    font-size: 40px;
+    background: white;
+    margin-top: 2%;
+}
+
+.ToDoList li:first-child{
+    margin: 0;
+}
+
+.ToDoList li input{
+    height: 80%;
+    aspect-ratio: 1;
+    margin-right: 5%;
+}
+
+.AddButton{
+    height: 10%;
+    width: 40%;
+    border: black solid 2px;
+    background: white;
+    font-size: 40px;
+    border-bottom: 0;
+    box-shadow: 0 2px 0 black;
+    margin-top: 3%;
+}
+
+.AddButton:active{
+    box-shadow: 0 0.5px 0 black;
+    transition: 0.3s;
+}
