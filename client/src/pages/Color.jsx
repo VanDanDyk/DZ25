@@ -9,6 +9,8 @@ const useCustomOutletContext = () => {
 
 
 function Color() {
+	const {setColLink} = useCustomOutletContext();
+	setColLink('ChCol')
 	const {colorsArr} = useCustomOutletContext();
 	const [color, setColor] = useState('white')
 	const ChangeColor = (el) => {

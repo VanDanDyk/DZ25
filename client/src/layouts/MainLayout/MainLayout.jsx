@@ -4,6 +4,8 @@ import { v4 as uuidv4 } from 'uuid'
 import styles from './MainLayout.module.css'
 
 function MainLayout() {
+	const [ColorLink , setColLink] = useState()
+	let LinksColors = [((ColorLink == 'Main') ? ('#A5D8FF') : ('white')),((ColorLink == 'ToDo') ? ('#A5D8FF') : ('white')),((ColorLink == 'ChCol') ? ('#A5D8FF') : ('white'))]
 	const currentUrl = window.location.href;
 	console.log(currentUrl)
 	let colorsArr = []
@@ -14,11 +16,11 @@ function MainLayout() {
 		<div className={styles['wrapper']}>
 			<div className={styles["RedirMenu"]}>
 			<span>Навигация:</span>
-			<NavLink to={'/'} className={'MainLink'}>Главная</NavLink>
-			<NavLink to={'/toDoList'} className={'toDoLink'}>Список дел</NavLink>
-			<NavLink to={'/color'} className={'ChColLink'}>Выбор цвета</NavLink>
+			<NavLink to={'/'} className={'MainLink'} style={{background: (LinksColors[0])}}>Главная</NavLink>
+			<NavLink to={'/toDoList'} className={'toDoLink'} style={{background: (LinksColors[1])}}>Список дел</NavLink>
+			<NavLink to={'/color'} className={'ChColLink'} style={{background: (LinksColors[2])}}>Выбор цвета</NavLink>
 			</div>
-			<Outlet context={{colorsArr}}/>
+			<Outlet context={{setColLink,colorsArr}}/>
 		</div>
 	)
 }

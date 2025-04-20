@@ -1,9 +1,15 @@
 //import styles from './Test.module.css'
 import { useState } from 'react';
-import { useOutletContext } from 'react-router';
+import { NavLink, Outlet, useOutletContext } from 'react-router'
 import styles from './ToDoList.module.css'
 
+const useCustomOutletContext = () => {
+	return useOutletContext(); // можно типизировать, если используешь TypeScript
+  };
+
 function ToDoList() {
+	const {setColLink} = useCustomOutletContext();
+    setColLink('ToDo')
 	const [ ToDos, setToDoS ] = useState([])
 
 	const AddToDo= () => {
