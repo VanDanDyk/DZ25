@@ -17,8 +17,9 @@ function ToDoList() {
 		setToDoS([...ToDos])
 	}
 	const DelToDo = (el) => {
+		if(`${el.target}` == '[object HTMLLIElement]'){
 		el.target.remove()
-		
+		}
 	}
 
 	return <div className={styles['container']}>
